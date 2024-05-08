@@ -62,7 +62,7 @@ services:
       - /usr/src/app/node_modules/
     command: npm run start:dev
     env_file:
-      - ./.env.local
+      - stack.env
 
   discord-rest-listener-service:
     extends:
@@ -73,7 +73,7 @@ services:
       - /usr/src/app/node_modules/
     command: npm start
     env_file:
-      - ./.env.local
+      - stack.env
 
   feed-requests-service:
     extends:
@@ -84,7 +84,7 @@ services:
       - /usr/src/app/node_modules/
     command: npm run start:local
     env_file:
-      - ./.env.local
+      - stack.env
     environment:
       - LOG_LEVEL=debug
       - FEED_REQUESTS_S3_ENDPOINT=http://seaweed-fs:8333
@@ -97,7 +97,7 @@ services:
       service: feed-requests-postgres-migration
     command: "npm run migration:local:up"
     env_file:
-      - ./.env.local
+      - stack.env
     environment:
       - FEED_REQUESTS_S3_ENDPOINT=http://seaweed-fs:8333
       - FEED_REQUESTS_S3_API_KEY_ID=1
@@ -116,7 +116,7 @@ services:
       - "4999:4999"
     command: npm run start:local
     env_file:
-      - ./.env.local
+      - stack.env
 
   user-feeds-service:
     extends:
@@ -127,7 +127,7 @@ services:
       - /usr/src/app/node_modules/
     command: npm run start:local
     env_file:
-      - ./.env.local
+      - stack.env
     environment:
       - LOG_LEVEL=debug
       - USER_FEEDS_START_TARGET=service
@@ -143,7 +143,7 @@ services:
       - "5001:5000"
     command: npm run start:local
     env_file:
-      - ./.env.local
+      - stack.env
     environment:
       - LOG_LEVEL=debug
       - USER_FEEDS_START_TARGET=api
@@ -154,7 +154,7 @@ services:
       service: user-feeds-postgres-migration
     command: npm run migration:local:up
     env_file:
-      - ./.env.local
+      - stack.env
   
   # Schedule emitter
   schedule-emitter-service:
@@ -165,7 +165,7 @@ services:
       - ./services/backend-api:/usr/src/app
       - /usr/src/app/node_modules/
     env_file:
-      - ./.env.local
+      - stack.env
     environment:
       - NODE_ENV=local
       - LOG_LEVEL=debug
@@ -180,7 +180,7 @@ services:
       - ./services/backend-api:/usr/src/app
       - /usr/src/app/node_modules/
     env_file:
-      - ./.env.local
+      - stack.env
     environment:
       - NODE_ENV=local
     command: npm run start:legacy-feed-converter:local
@@ -194,7 +194,7 @@ services:
       - ./services/backend-api:/usr/src/app
       - /usr/src/app/node_modules/
     env_file:
-      - ./.env.local
+      - stack.env
     environment:
       - BACKEND_API_NODE_ENV=local
       - BACKEND_API_USER_FEEDS_API_HOST=http://user-feeds-api:5000
